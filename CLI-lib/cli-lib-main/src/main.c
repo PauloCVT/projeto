@@ -12,31 +12,36 @@
 #include "keyboard.h"
 #include "timer.h"
 
-#define ESQUERDA 97          // Código para A
-#define DIREITA 100         // Código para D
-
 int playerX = 34, playerY = 23;
 
-//Função que exibe o jogador na tela, trocando a cor para verde e o player sera mostrado nos valores do x,y
-void MostrarPlayer() {
+void displayPlayer() {
     screenSetColor(GREEN, DARKGRAY);
     screenGotoxy(playerX, playerY);
     printf("A");
+    screenUpdate();
 }
-
 
 int main() {
     int ch = 0;
-    if(keyhit()){
-        ch = readch();
-            if (ch == ESQUERDA && playerX > MINX + 1) {
+
+    screenInit(1);
+    keyboardInit();
+    timerInit(50);
+
+    while (1) {
+        if (keyhit()) {
+            ch = readch();
+            if (ch == 'a' && playerX > MINX + 1) {
                 playerX--;
-                }
-            else if (ch == DIREITA && playerX < MAXX - 1) {
+            } else if (ch == 'd' && playerX < MAXX - 1) {
                 playerX++;
-                }
+            }
         }
-    
+
+        screenClear();
+        displayPlayer();
+        screenUpdate();
+    }
 
     keyboardDestroy();
     screenDestroy();
