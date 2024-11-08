@@ -12,11 +12,10 @@
 #include "timer.h"
 
 #define MAX_ENEMIES 5
-#define MAX_LIVES 1
 
 int playerX = 34, playerY = 23; 
 
-int lives = MAX_LIVES;
+int gameOver = 0;
 
 typedef struct {
     int x, y;
@@ -30,6 +29,17 @@ typedef struct {
 } Shot;
 
 Enemy enemies[MAX_ENEMIES];
+
+void GameOverMensagem(int vitoria) {
+    screenClear();
+    screenGotoxy(25, 10);
+    if (vitoria) {
+        printf("Voce Venceu!");
+    } else {
+        printf("Game Over! Voce perdeu!");
+    }
+    
+}
 
 void initEnemies() {
     for (int i = 0; i < MAX_ENEMIES; i++) {
@@ -53,6 +63,11 @@ void displayEnemies() {
             screenGotoxy(enemies[i].x, enemies[i].y);
             printf("W");
         }
+        if(enemies[i].y >= playerY){
+            gameOver = 1;
+            GameOverMensagem(0);
+            return;
+        }
     }
 }
 
@@ -71,6 +86,8 @@ void updateEnemies() {
 
 int main() {   
     int ch = 0;
+    gameOver = 0;
+
     screenInit(1);
     keyboardInit();
     timerInit(50);
@@ -78,7 +95,8 @@ int main() {
     displayPlayer();
     displayEnemies();
     screenUpdate();
-    while (lives > 0) {
+
+    while (!gameOver) {
         if (keyhit()) {
             ch = readch();
             if (ch == 'a' && playerX > MINX + 1) {
