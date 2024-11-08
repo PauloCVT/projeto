@@ -26,5 +26,5 @@ Movimentação do inimigo:
 
 
 ## Mecânicas em desenvolvimento
-- Caso alguma nave inimiga alcançe a linha do jogador, o jogo termina.
+- Caso alguma nave inimiga alcançe a linha do jogador, o jogo termina. (feito)
 - O jogador atira automaticamente a cada intervalo de tempo, ao atingir um inmigo a frequência dos disparos aumenta
