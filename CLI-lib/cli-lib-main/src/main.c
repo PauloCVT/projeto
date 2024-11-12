@@ -12,6 +12,8 @@
 #include "timer.h"
 
 #define MAX_ENEMIES 5
+#define direita 100
+#define esquerda 97
 
 int playerX = 34, playerY = 23; 
 
@@ -99,9 +101,9 @@ int main() {
     while (!gameOver) {
         if (keyhit()) {
             ch = readch();
-            if (ch == 'a' && playerX > MINX + 1) {
+            if (ch == esquerda && playerX > MINX + 1) {
                 playerX--; 
-            } else if (ch == 'd' && playerX < MAXX - 1) {
+            } else if (ch == direita && playerX < MAXX - 1) {
                 playerX++; 
             }
         }
