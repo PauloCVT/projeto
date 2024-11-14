@@ -103,8 +103,14 @@ void checkCollisions() {
         }
     }
 }
-
-
+int allEnemiesDefeated() {
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        if (enemies[i].active) {
+            return 0;
+        }
+    }
+    return 1;
+}
 void initShots(){
     for(int i = 0; i < MAX_SHOTS; i++){
         shots[i].active = 0;
