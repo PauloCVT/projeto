@@ -156,16 +156,28 @@ int main() {
         shotCounter++;
 
         if (timerTimeOver() == 1) {
-            updateEnemies();
-            screenClear();
-            displayPlayer();
-            displayEnemies();
-            displayShots();
-            updateShots();
-            screenGotoxy(2, 2);
-            screenUpdate();
-        }
-    }    
+                        updateShots();
+                        updateEnemies();
+                        checkCollisions();
+
+                        screenClear();
+                        displayPlayer();
+                        displayEnemies();
+                        displayShots();
+                        screenGotoxy(2, 2);
+                        printf("Pontuação: %d ", score);
+                        screenUpdate();
+
+                        if (allEnemiesDefeated()) {
+                            gameOver = 1;
+                            
+                            displayGameOverMessage(1);  
+                            
+                        }
+                    }
+                }
+
+   
     keyboardDestroy();
     screenDestroy();
 
