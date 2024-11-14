@@ -14,6 +14,7 @@
 #define MAX_ENEMIES 7
 #define direita 100
 #define esquerda 97
+#define ESC 27
 #define MAX_SHOTS 5
 #define SHOT_INTERVAL 10
 
@@ -50,7 +51,7 @@ void GameOverMensagem(int vitoria) {
     screenGotoxy(25, 14);
     printf("Pressione ESC para voltar ao menu.");
     screenUpdate();
-    while (readch() != 27) { /* Espera ESC */ }
+    while (readch() != ESC) { }
     
 }
 
