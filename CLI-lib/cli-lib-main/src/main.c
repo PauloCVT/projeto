@@ -198,7 +198,7 @@ int main() {
                         if (allEnemiesDefeated()) {
                             gameOver = 1;
                             
-                            displayGameOverMessage(1);  
+                            GameOverMensagem(1);  
                             
                         }
                     }
