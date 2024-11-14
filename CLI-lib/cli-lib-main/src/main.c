@@ -11,9 +11,10 @@
 #include "keyboard.h"
 #include "timer.h"
 
-#define MAX_ENEMIES 5
+#define MAX_ENEMIES 7
 #define direita 100
 #define esquerda 97
+#define ESC 27
 #define MAX_SHOTS 5
 #define SHOT_INTERVAL 10
 
@@ -41,10 +42,16 @@ void GameOverMensagem(int vitoria) {
     screenClear();
     screenGotoxy(25, 10);
     if (vitoria) {
-        printf("Voce Venceu!");
+        printf("Vitória!");
     } else {
-        printf("Game Over! Voce perdeu!");
+        printf("Fim de Jogo! Você Perdeu!");
     }
+    screenGotoxy(25, 12);
+    printf("Pontuação: %d pontos ", score);
+    screenGotoxy(25, 14);
+    printf("Pressione ESC para voltar ao menu.");
+    screenUpdate();
+    while (readch() != ESC) { }
     
 }
 
@@ -200,6 +207,7 @@ int main() {
    
     keyboardDestroy();
     screenDestroy();
+    timerDestroy();
 
     return 0;
 }
