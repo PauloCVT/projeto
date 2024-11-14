@@ -90,6 +90,20 @@ void updateEnemies() {
         }
     }
 }
+void checkCollisions() {
+    for (int i = 0; i < MAX_SHOTS; i++) {
+        if (shots[i].active) {
+            for (int j = 0; j < MAX_ENEMIES; j++) {
+                if (enemies[j].active && shots[i].x == enemies[j].x && shots[i].y == enemies[j].y) {
+                    enemies[j].active = 0;
+                    shots[i].active = 0;
+                    score += 100;  
+                }
+            }
+        }
+    }
+}
+
 
 void initShots(){
     for(int i = 0; i < MAX_SHOTS; i++){
