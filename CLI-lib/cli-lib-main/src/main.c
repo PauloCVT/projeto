@@ -14,9 +14,11 @@
 #define MAX_ENEMIES 5
 #define direita 100
 #define esquerda 97
+#define MAX_SHOTS 5
+#define SHOT_INTERVAL 10
 
 int playerX = 34, playerY = 23; 
-
+int score = 0;
 int gameOver = 0;
 
 typedef struct {
@@ -31,6 +33,9 @@ typedef struct {
 } Shot;
 
 Enemy enemies[MAX_ENEMIES];
+Shot shots[MAX_SHOTS];
+
+int shotCounter = 0;
 
 void GameOverMensagem(int vitoria) {
     screenClear();
@@ -86,6 +91,32 @@ void updateEnemies() {
     }
 }
 
+void initShots(){
+    for(int i = 0; i < MAX_SHOTS; i++){
+        shots[i].active = 0;
+    }
+}
+void displayShots(){
+    screenSetColor(WHITE, DARKGRAY);
+    for(int i = 0; i < MAX_SHOTS; i++){
+        if (shots[i].active){
+            screenGotoxy(shots[i].x, shots[i].y);
+            printf("|");
+        }
+    }
+}
+
+void updateShots(){
+    for(int i = 0; i < MAX_SHOTS; i++){
+        if(shots[i].active){
+            shots[i].y--;
+            if(shots[i].y <= MINY){
+                shots[i].active = 0;
+            }
+        }
+    }
+}
+
 int main() {   
     int ch = 0;
     gameOver = 0;
@@ -96,6 +127,9 @@ int main() {
     initEnemies();
     displayPlayer();
     displayEnemies();
+    initShots();
+    displayShots();
+    updateShots();
     screenUpdate();
 
     while (!gameOver) {
@@ -107,19 +141,33 @@ int main() {
                 playerX++; 
             }
         }
+        
+        if (shotCounter >= SHOT_INTERVAL){
+            for(int i = 0; i < MAX_SHOTS; i++){
+                if(!shots[i].active){
+                    shots[i].x = playerX;
+                    shots[i].y = playerY - 1;
+                    shots[i].active = 1;
+                    break;
+                }
+            }
+            shotCounter = 0;
+        }
+        shotCounter++;
 
         if (timerTimeOver() == 1) {
             updateEnemies();
             screenClear();
             displayPlayer();
             displayEnemies();
+            displayShots();
+            updateShots();
             screenGotoxy(2, 2);
             screenUpdate();
         }
     }    
     keyboardDestroy();
     screenDestroy();
-    timerDestroy();
 
     return 0;
 }
