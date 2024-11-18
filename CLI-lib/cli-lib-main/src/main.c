@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
@@ -13,6 +13,7 @@
 #define SHOT_INTERVAL 10 
 #define esquerda 97
 #define direita 100
+#define ESC 27
 
 int playerX = 34, playerY = 23;
 int score = 0; 
@@ -85,7 +86,7 @@ void displayGameOverMessage(int win) {
     screenGotoxy(25, 14);
     printf("Pressione ESC para voltar ao menu.");
     screenUpdate();
-    while (readch() != 27) { }
+    while (readch() != ESC) { }
 }
 
 void initEnemies() {
