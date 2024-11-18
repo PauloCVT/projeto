@@ -201,6 +201,7 @@ int main() {
                 screenClear();               
                 initEnemies();
                 initShots();
+                score = 0;
                 gameOver = 0;
 
                 
